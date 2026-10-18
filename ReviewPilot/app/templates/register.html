@@ -1,0 +1,44 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <h1>Create your account</h1>
+    <p>Start managing your business reviews with ReviewPilot.</p>
+
+    <form method="POST">
+        <label for="email">Email address</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+        >
+
+        <label for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Create a password"
+            minlength="8"
+            required
+        >
+
+        <label for="business_name">Business name</label>
+        <input
+            type="text"
+            id="business_name"
+            name="business_name"
+            placeholder="Your business name"
+            maxlength="150"
+            required
+        >
+
+        <button type="submit">Create account</button>
+    </form>
+
+    <p>Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+</div>
+{% endblock %}

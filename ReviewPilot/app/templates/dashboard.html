@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReviewPilot | Dashboard</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="layout">
+    <aside>
+        <h2 class="brand">ReviewPilot</h2>
+        <a class="nav-item" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="nav-item" href="#reviews">Reviews</a>
+        <a class="nav-item" href="{{ url_for('recycle_bin') }}">Recycle Bin</a>
+        <a class="nav-item" href="{{ url_for('logout') }}">Logout</a>
+        <p class="note">Local prototype</p>
+    </aside>
+
+    <main id="dashboard">
+        <header class="top">
+            <div>
+                <h1>Review Dashboard</h1>
+                <p>Manage review replies and approvals.</p>
+            </div>
+        </header>
+
+        <section class="stats">
+            <div class="stat">
+                <h3>Active Reviews</h3>
+                <p>{{ total_reviews }}</p>
+            </div>
+            <div class="stat">
+                <h3>Awaiting Approval</h3>
+                <p>{{ awaiting_count }}</p>
+            </div>
+            <div class="stat">
+                <h3>Published</h3>
+                <p>{{ published_count }}</p>
+            </div>
+        </section>
+
+        <section id="reviews">
+            <h2>Customer Reviews</h2>
+
+            {% for review in reviews %}
+            <article class="review">
+                <div class="review-top">
+                    <div>
+                        <h3>{{ review.customer_name }}</h3>
+                        <p class="stars">
+                            {{ "★" * review.rating }}{{ "☆" * (5 - review.rating) }}
+                        </p>
+                    </div>
+                    <span class="status">{{ review.status }}</span>
+                </div>
+
+                <p><strong>Customer review:</strong></p>
+                <p>{{ review.review_text }}</p>
+
+                <div class="draft">
+                    <p><strong>Reply — version {{ review.version }}</strong></p>
+                    <p>{{ review.reply_text }}</p>
+                </div>
+
+                {% if review.feedback %}
+                <p><strong>Requested changes:</strong> {{ review.feedback }}</p>
+                {% endif %}
+
+                {% if review.status == "Awaiting approval" %}
+                <div class="actions">
+                    <form action="{{ url_for('approve', review_id=review.id) }}"
+                          method="POST">
+                        <button type="submit" class="approve">
+                            Approve reply
+                        </button>
+                    </form>
+
+                    <form action="{{ url_for('request_changes', review_id=review.id) }}"
+                          method="POST">
+                        <textarea name="feedback"
+                                  placeholder="Explain the changes needed..."
+                                  required></textarea>
+                        <button type="submit" class="edit">
+                            Request changes
+                        </button>
+                    </form>
+
+                    <form action="{{ url_for('reject', review_id=review.id) }}"
+                          method="POST"
+                          onsubmit="return confirm('Move this reply to the Recycle Bin? You can restore it within 48 hours.');">
+                        <button type="submit" class="danger-button">
+                            Reject reply
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
+
+                {% if review.status == "Changes requested" %}
+                <form action="{{ url_for('revise', review_id=review.id) }}"
+                      method="POST">
+                    <label for="reply-{{ review.id }}">
+                        Edit the reply:
+                    </label>
+                    <textarea id="reply-{{ review.id }}"
+                              name="reply"
+                              required>{{ review.reply_text }}</textarea>
+                    <button type="submit" class="edit">
+                        Submit revised reply
+                    </button>
+                </form>
+                {% endif %}
+
+                {% if review.status == "Approved" %}
+                <p class="note">
+                    Approved locally. This reply has not been published to Google.
+                </p>
+                <form action="{{ url_for('reject', review_id=review.id) }}"
+                      method="POST"
+                      onsubmit="return confirm('Move this reply to the Recycle Bin?');">
+                    <button type="submit" class="danger-button">
+                        Move to Recycle Bin
+                    </button>
+                </form>
+                {% endif %}
+            </article>
+            {% else %}
+            <p>No active reviews found.</p>
+            {% endfor %}
+        </section>
+
+        
+        <section id="recycle-bin" class="recycle-section">
+            <h2>Recycle Bin</h2>
+            <p class="note">
+                Deleted reply versions are kept for 48 hours.
+            </p>
+
+            {% for version in recycle_bin %}
+            <article class="review recycle-item">
+                <div class="review-top">
+                    <div>
+                        <h3>Reply version {{ version.version }}</h3>
+                        <p class="status">{{ version.status }}</p>
+                    </div>
+                    <span class="status">In Recycle Bin</span>
+                </div>
+
+                <div class="draft">
+                    <p><strong>Saved reply:</strong></p>
+                    <p>{{ version.reply_text }}</p>
+                </div>
+
+                {% if version.deleted_at %}
+                <p class="expiry"
+                   data-deleted-at="{{ version.deleted_at.isoformat() }}">
+                    Calculating expiry...
+                </p>
+                {% endif %}
+
+                <div class="actions">
+                    <form action="{{ url_for('restore_version', version_id=version.id) }}"
+                          method="POST">
+                        <button type="submit" class="approve">
+                            Restore reply
+                        </button>
+                    </form>
+
+                    <form action="{{ url_for('permanent_delete_version', version_id=version.id) }}"
+                          method="POST"
+                          onsubmit="return confirm('Permanently delete this reply version? This cannot be undone.');">
+                        <button type="submit" class="danger-button">
+                            Delete permanently
+                        </button>
+                    </form>
+                </div>
+            </article>
+            {% else %}
+            <p>Your Recycle Bin is empty.</p>
+            {% endfor %}
+        </section>
+
+
+        <p class="note">
+            Demo mode: sample data only. Nothing is sent to customers or published.
+        </p>
+    </main>
+</div>
+
+<script>
+    function updateExpiryLabels() {
+        document.querySelectorAll(".expiry").forEach(function (element) {
+            const deletedAt = new Date(element.dataset.deletedAt);
+            const expiresAt = deletedAt.getTime() + 48 * 60 * 60 * 1000;
+            const remaining = expiresAt - Date.now();
+
+            if (remaining <= 0) {
+                element.textContent = "Expiry reached. Refresh to run cleanup.";
+                return;
+            }
+
+            const hours = Math.floor(remaining / (60 * 60 * 1000));
+            const minutes = Math.floor(
+                (remaining % (60 * 60 * 1000)) / (60 * 1000)
+            );
+
+            element.textContent =
+                "Automatically deleted in " + hours + "h " + minutes + "m";
+        });
+    }
+
+    updateExpiryLabels();
+    setInterval(updateExpiryLabels, 60000);
+</script>
+
+</body>
+</html>

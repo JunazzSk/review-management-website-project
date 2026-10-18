@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Features | ReviewPilot{% endblock %}
+
+{% block meta_description %}
+Explore ReviewPilot features for managing customer reviews, organizing reply versions, and approving responses.
+{% endblock %}
+
+{% block content %}
+
+<section class="features-hero">
+    <div class="container">
+        <span class="eyebrow">REVIEW MANAGEMENT, SIMPLIFIED</span>
+
+        <h1>Everything you need to manage customer reviews.</h1>
+
+        <p>
+            Keep customer feedback organized, prepare thoughtful replies,
+            and manage revisions and approvals from one place.
+        </p>
+
+        <a class="button button-primary"
+           href="{{ url_for('home') }}">
+            Explore the dashboard
+        </a>
+    </div>
+</section>
+
+<section class="features-section" id="review-management">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow">CORE FEATURES</span>
+            <h2>Stay in control of every reply</h2>
+            <p>
+                Spend less time organizing responses and more time
+                understanding your customers.
+            </p>
+        </div>
+
+        <div class="features-grid">
+
+            <article class="feature-card">
+                <div class="feature-icon">01</div>
+                <h3>Review management</h3>
+                <p>
+                    Keep customer reviews, ratings, and draft replies
+                    organized in your dashboard.
+                </p>
+                <span class="feature-status">Available in current demo</span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">02</div>
+                <h3>Reply version history</h3>
+                <p>
+                    Keep track of revised replies so you can distinguish
+                    between earlier drafts and newer versions.
+                </p>
+                <span class="feature-status">Available in current demo</span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">03</div>
+                <h3>Approval workflow</h3>
+                <p>
+                    Review a draft, approve it, reject it, or request
+                    changes before a response is finalized.
+                </p>
+                <span class="feature-status">Available in current demo</span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">04</div>
+                <h3>Reply recycle bin</h3>
+                <p>
+                    Restore deleted reply versions within the configured
+                    48-hour recovery period or permanently delete them.
+                </p>
+                <span class="feature-status">Available in current demo</span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">05</div>
+                <h3>AI-assisted replies</h3>
+                <p>
+                    Help draft polite, relevant responses based on the
+                    customer's feedback and the business's preferred tone.
+                </p>
+                <span class="feature-status">Planned integration</span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">06</div>
+                <h3>Business review integrations</h3>
+                <p>
+                    Connect supported review platforms to retrieve feedback
+                    and publish replies when the required API access is configured.
+                </p>
+                <span class="feature-status">Planned integration</span>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<section class="features-cta">
+    <div class="container">
+        <h2>Ready to explore ReviewPilot?</h2>
+        <p>
+            Open the current demo and explore its review and approval workflow.
+        </p>
+        <a class="button button-primary"
+           href="{{ url_for('home') }}">
+            Open dashboard
+        </a>
+    </div>
+</section>
+
+{% endblock %}

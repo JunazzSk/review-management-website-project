@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block title %}ReviewPilot | Manage Customer Reviews Smarter{% endblock %}
+
+{% block meta_description %}Organize customer reviews, create thoughtful AI-assisted replies, and keep control of every revision and approval with ReviewPilot.{% endblock %}
+
+{% block content %}
+
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                A smarter way to manage reviews
+            </div>
+
+            <h1>
+                Every review deserves
+                <span class="text-gradient">a thoughtful reply.</span>
+            </h1>
+
+            <p class="hero-description">
+                Keep customer reviews organized, prepare better replies,
+                and manage revisions and approvals from one simple workspace.
+            </p>
+
+            <div class="hero-actions" id="get-started">
+                <a class="button button-primary button-large"
+                   href="{{ url_for('dashboard') }}">
+                    Explore the demo
+                    <span aria-hidden="true">→</span>
+                </a>
+
+                <a class="button button-secondary button-large"
+                   href="#how-it-works">
+                    See how it works
+                </a>
+            </div>
+
+            <div class="hero-points">
+                <span><span class="check-icon">✓</span> Organized reply history</span>
+                <span><span class="check-icon">✓</span> Approval-first workflow</span>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="visual-glow"></div>
+
+            <div class="dashboard-preview">
+                <div class="preview-header">
+                    <div>
+                        <p class="preview-overline">WORKSPACE PREVIEW</p>
+                        <h3>Review overview</h3>
+                    </div>
+                    <span class="preview-avatar">RP</span>
+                </div>
+
+                <div class="preview-stats">
+                    <div class="preview-stat">
+                        <span>Total reviews</span>
+                        <strong>128</strong>
+                        <small>Illustrative data</small>
+                    </div>
+                    <div class="preview-stat">
+                        <span>Needs approval</span>
+                        <strong>08</strong>
+                        <small>Illustrative data</small>
+                    </div>
+                </div>
+
+                <div class="preview-review">
+                    <div class="preview-review-heading">
+                        <div class="customer-avatar">AS</div>
+                        <div class="customer-info">
+                            <strong>Alex Smith</strong>
+                            <span>Example customer review</span>
+                        </div>
+                        <span class="rating">★★★★★</span>
+                    </div>
+
+                    <p class="preview-quote">
+                        "Wonderful service and a very helpful team!"
+                    </p>
+
+                    <div class="preview-reply">
+                        <div class="reply-label">
+                            <span class="reply-dot"></span>
+                            Reply draft
+                            <span class="draft-badge">Draft</span>
+                        </div>
+                        <p>
+                            Thank you for sharing your experience!
+                            We're glad our team could help.
+                        </p>
+                    </div>
+
+                    <div class="preview-footer">
+                        <span>Version 2 · Awaiting approval</span>
+                        <span class="preview-arrow">→</span>
+                    </div>
+                </div>
+
+                <div class="preview-history">
+                    <span class="history-icon">↺</span>
+                    <div>
+                        <strong>Version history</strong>
+                        <span>Keep previous drafts organized</span>
+                    </div>
+                    <span class="history-count">02</span>
+                </div>
+            </div>
+
+            <div class="floating-note">
+                <span class="floating-check">✓</span>
+                <div>
+                    <strong>Approval first</strong>
+                    <span>You stay in control</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="trust-strip">
+    <div class="container trust-inner">
+        <span>BUILT FOR A BETTER REVIEW WORKFLOW</span>
+        <div>
+            <span>Organize</span>
+            <span class="trust-separator">·</span>
+            <span>Draft</span>
+            <span class="trust-separator">·</span>
+            <span>Review</span>
+            <span class="trust-separator">·</span>
+            <span>Approve</span>
+        </div>
+    </div>
+</section>
+
+<section class="section section-white" id="features">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-kicker">THE WORKSPACE</span>
+            <h2>Everything starts with<br>a better review workflow.</h2>
+            <p>
+                Organize feedback, manage reply revisions and keep
+                approval decisions under control.
+            </p>
+        </div>
+
+        <div class="feature-grid">
+            <article class="feature-card">
+                <div class="feature-icon icon-blue">✳</div>
+                <h3>Organized review workflow</h3>
+                <p>
+                    Keep customer feedback and draft replies together
+                    in one clear workspace.
+                </p>
+                <a class="feature-link"
+                   href="{{ url_for('features') }}">
+                    Explore features <span>→</span>
+                </a>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon icon-purple">↺</div>
+                <h3>Reply version history</h3>
+                <p>
+                    Track revisions and recover individual deleted
+                    reply versions within the recovery period.
+                </p>
+                <a class="feature-link"
+                   href="{{ url_for('features') }}">
+                    See how it works <span>→</span>
+                </a>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon icon-green">✓</div>
+                <h3>Approval-first workflow</h3>
+                <p>
+                    Review drafts, request changes and approve replies
+                    before any future publishing step.
+                </p>
+                <a class="feature-link"
+                   href="{{ url_for('features') }}">
+                    Discover features <span>→</span>
+                </a>
+            </article>
+        </div>
+
+        <div class="features-more">
+            <a class="button button-secondary button-large"
+               href="{{ url_for('features') }}">
+                Explore all features →
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section how-section" id="how-it-works">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-kicker">HOW IT WORKS</span>
+            <h2>From customer feedback<br>to an approved reply.</h2>
+            <p>A simple process that keeps people in control.</p>
+        </div>
+
+        <div class="steps-grid">
+            <article class="step-card">
+                <span class="step-number">01</span>
+                <div class="step-line"></div>
+                <h3>Review the feedback</h3>
+                <p>Understand the customer's experience and what needs a response.</p>
+            </article>
+
+            <article class="step-card">
+                <span class="step-number">02</span>
+                <div class="step-line"></div>
+                <h3>Prepare a reply</h3>
+                <p>Create a draft and refine it until the wording is appropriate.</p>
+            </article>
+
+            <article class="step-card">
+                <span class="step-number">03</span>
+                <div class="step-line"></div>
+                <h3>Request or make changes</h3>
+                <p>Save earlier versions and keep track of requested improvements.</p>
+            </article>
+
+            <article class="step-card">
+                <span class="step-number">04</span>
+                <div class="step-line"></div>
+                <h3>Approve the final version</h3>
+                <p>Approve the intended reply before any supported publishing integration.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section section-white" id="pricing">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-kicker">SIMPLE START</span>
+            <h2>Start exploring ReviewPilot.</h2>
+            <p>
+                Try the current local demo while we build account management,
+                subscriptions and real integrations.
+            </p>
+        </div>
+
+        <div class="pricing-card">
+            <div>
+                <span class="plan-label">DEMO ACCESS</span>
+                <h3>Explore the workflow</h3>
+                <p>
+                    Test the current review dashboard, approval flow,
+                    reply versions and Recycle Bin.
+                </p>
+                <ul class="pricing-list">
+                    <li>✓ Sample customer reviews</li>
+                    <li>✓ Reply revision and approval workflow</li>
+                    <li>✓ Version-level Recycle Bin</li>
+                </ul>
+            </div>
+            <div class="pricing-action">
+                <span class="price-text">Local prototype</span>
+                <a class="button button-primary button-large"
+                   href="{{ url_for('dashboard') }}">
+                    Open demo dashboard →
+                </a>
+                <small>No live publishing is enabled.</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="final-cta">
+    <div class="container final-cta-inner">
+        <div>
+            <span class="section-kicker cta-kicker">A BETTER WAY TO RESPOND</span>
+            <h2>Make every reply more thoughtful.</h2>
+            <p>Explore the ReviewPilot workflow and see how it fits together.</p>
+        </div>
+        <a class="button button-light button-large"
+           href="{{ url_for('dashboard') }}">
+            Explore the demo <span>→</span>
+        </a>
+    </div>
+</section>
+
+{% endblock %}

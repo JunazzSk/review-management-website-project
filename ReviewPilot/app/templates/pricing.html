@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Pricing | ReviewPilot{% endblock %}
+
+{% block meta_description %}
+Compare ReviewPilot plans for managing customer reviews, reply approvals, and business workflows.
+{% endblock %}
+
+{% block content %}
+
+<section class="pricing-hero">
+    <div class="container">
+        <span class="eyebrow">SIMPLE, TRANSPARENT PRICING</span>
+
+        <h1>The right plan for your business.</h1>
+
+        <p>
+            Start by exploring the workflow. Choose a paid plan when
+            account management, integrations, and billing are ready.
+        </p>
+    </div>
+</section>
+
+<section class="pricing-page-section">
+    <div class="container">
+        <div class="pricing-plans">
+
+            <article class="plan-card">
+                <span class="plan-label">GET STARTED</span>
+                <h2>Starter</h2>
+                <p class="plan-description">
+                    Explore the review management workflow.
+                </p>
+
+                <div class="plan-price">Free</div>
+                <p class="plan-period">Local demo</p>
+
+                <ul class="pricing-list">
+                    <li>✓ Sample customer reviews</li>
+                    <li>✓ Reply revision workflow</li>
+                    <li>✓ Approval management demo</li>
+                    <li>✓ Reply version recycle bin</li>
+                </ul>
+
+                <a class="button button-secondary plan-button"
+                   href="{{ url_for('home') }}">
+                    Explore demo
+                </a>
+            </article>
+
+            <article class="plan-card">
+                <span class="plan-label">PROPOSED PLAN</span>
+                <h2>Professional</h2>
+                <p class="plan-description">
+                    For small businesses managing customer feedback.
+                </p>
+
+                <div class="plan-price">₹499<span>/month</span></div>
+                <p class="plan-period">Proposed price, not active</p>
+
+                <ul class="pricing-list">
+                    <li>✓ Business workspace</li>
+                    <li>✓ Review and reply management</li>
+                    <li>✓ Team approval workflow</li>
+                    <li>✓ Planned AI-assisted replies</li>
+                    <li>✓ Planned review integrations</li>
+                </ul>
+
+                <a class="button button-secondary plan-button"
+                   href="{{ url_for('landing') }}#get-started">
+                    Coming soon
+                </a>
+            </article>
+
+            <article class="plan-card">
+                <span class="plan-label">PROPOSED PLAN</span>
+                <h2>Business</h2>
+                <p class="plan-description">
+                    For growing teams with more complex workflows.
+                </p>
+
+                <div class="plan-price">₹1,499<span>/month</span></div>
+                <p class="plan-period">Proposed price, not active</p>
+
+                <ul class="pricing-list">
+                    <li>✓ Multiple business workspaces</li>
+                    <li>✓ Team collaboration</li>
+                    <li>✓ Advanced approval workflows</li>
+                    <li>✓ Planned reporting features</li>
+                    <li>✓ Planned integrations</li>
+                </ul>
+
+                <a class="button button-secondary plan-button"
+                   href="{{ url_for('landing') }}#get-started">
+                    Coming soon
+                </a>
+            </article>
+
+        </div>
+
+        <div class="pricing-disclaimer">
+            <strong>Important:</strong> ReviewPilot is currently a local
+            prototype. Paid subscriptions, online payments, live AI replies,
+            and review-platform integrations are not active yet.
+        </div>
+    </div>
+</section>
+
+<section class="features-cta">
+    <div class="container">
+        <h2>Want to see how ReviewPilot works?</h2>
+        <p>Explore the current review, revision, and approval workflow.</p>
+
+        <a class="button button-primary"
+           href="{{ url_for('home') }}">
+            Open demo dashboard
+        </a>
+    </div>
+</section>
+
+{% endblock %}

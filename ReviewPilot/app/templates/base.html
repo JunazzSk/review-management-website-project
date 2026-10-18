@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}ReviewPilot | Smarter Review Management{% endblock %}</title>
+    <meta name="description"
+          content="{% block meta_description %}Manage customer reviews, draft thoughtful replies, and keep every approval organized with ReviewPilot.{% endblock %}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar container" aria-label="Main navigation">
+            <a class="brand-logo" href="{{ url_for('landing') }}">
+                <span class="brand-mark">R</span>
+                <span>ReviewPilot</span>
+            </a>
+
+            <div class="nav-links">
+                 <a href="{{ url_for('features') }}">Features</a>
+                 <a href="{{ url_for('landing') }}#how-it-works">How it works</a>
+                 <a href="{{ url_for('pricing') }}">Pricing</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="nav-login" href="{{ url_for('dashboard') }}">Demo dashboard</a>
+                <a class="button button-primary button-small"
+                   href="{{ url_for('landing') }}#get-started">
+                    Get started
+                </a>
+            </div>
+
+            <button class="mobile-menu-button"
+                    type="button"
+                    aria-label="Show navigation"
+                    aria-expanded="false"
+                    aria-controls="mobile-navigation"
+                    onclick="const menu = document.getElementById('mobile-navigation'); const isOpen = menu.classList.toggle('is-open'); this.setAttribute('aria-expanded', String(isOpen));">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+
+        <div class="mobile-navigation" id="mobile-navigation">
+            <a href="{{ url_for('features') }}">Features</a>
+            <a href="{{ url_for('landing') }}#how-it-works">How it works</a>
+            <a href="{{ url_for('pricing') }}">Pricing</a>
+            <a href="{{ url_for('dashboard') }}">Demo Dashboard</a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <a class="brand-logo footer-brand" href="{{ url_for('landing') }}">
+                <span class="brand-mark">R</span>
+                <span>ReviewPilot</span>
+            </a>
+
+            <p>Thoughtful replies. Better review management.</p>
+            <p class="footer-note">
+                © {{ current_year }} ReviewPilot. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

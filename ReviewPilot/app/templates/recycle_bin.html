@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReviewPilot | Recycle Bin</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="layout">
+    <aside>
+        <h2 class="brand">ReviewPilot</h2>
+        <a class="nav-item" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="nav-item" href="{{ url_for('recycle_bin') }}">Recycle Bin</a>
+        <p class="note">Local prototype</p>
+    </aside>
+
+    <main>
+        <header class="top">
+            <div>
+                <h1>Recycle Bin</h1>
+                <p>Restore or permanently delete individual reply versions.</p>
+            </div>
+        </header>
+
+        <p class="note">
+            Deleted versions are kept for {{ recycle_bin_hours }} hours.
+            Expired versions are cleaned up when this page or the dashboard loads.
+        </p>
+
+        {% for version in versions %}
+        <article class="review recycle-item">
+            <div class="review-top">
+                <div>
+                    <h3>
+                        {{ version.review.customer_name }}
+                        — Version {{ version.version }}
+                    </h3>
+                    <p class="stars">
+                        {{ "★" * version.review.rating }}{{ "☆" * (5 - version.review.rating) }}
+                    </p>
+                </div>
+                <span class="status">In Recycle Bin</span>
+            </div>
+
+            <p><strong>Customer review:</strong></p>
+            <p>{{ version.review.review_text }}</p>
+
+            <div class="draft">
+                <p><strong>Saved reply:</strong></p>
+                <p>{{ version.reply_text }}</p>
+            </div>
+
+            <p><strong>Version status:</strong> {{ version.status }}</p>
+
+            {% if version.deleted_at %}
+            <p class="expiry"
+               data-deleted-at="{{ version.deleted_at.isoformat() }}">
+                Calculating expiry...
+            </p>
+            {% endif %}
+
+            <div class="actions">
+                <form action="{{ url_for('restore_version', version_id=version.id) }}"
+                      method="POST">
+                    <button type="submit" class="approve">
+                        Restore reply
+                    </button>
+                </form>
+
+                <form action="{{ url_for('permanent_delete_version', version_id=version.id) }}"
+                      method="POST"
+                      onsubmit="return confirm('Permanently delete only this reply version? This cannot be undone.');">
+                    <button type="submit" class="danger-button">
+                        Delete permanently
+                    </button>
+                </form>
+            </div>
+        </article>
+        {% else %}
+        <p>Your Recycle Bin is empty.</p>
+        {% endfor %}
+    </main>
+</div>
+
+<script>
+    function updateExpiryLabels() {
+        document.querySelectorAll(".expiry").forEach(function (element) {
+            const deletedAt = new Date(element.dataset.deletedAt);
+            const expiresAt = deletedAt.getTime() + 48 * 60 * 60 * 1000;
+            const remaining = expiresAt - Date.now();
+
+            if (remaining <= 0) {
+                element.textContent = "Expiry reached. Refresh the page to run cleanup.";
+                return;
+            }
+
+            const hours = Math.floor(remaining / (60 * 60 * 1000));
+            const minutes = Math.floor(
+                (remaining % (60 * 60 * 1000)) / (60 * 1000)
+            );
+
+            element.textContent =
+                "Automatically deleted in " + hours + "h " + minutes + "m";
+        });
+    }
+
+    updateExpiryLabels();
+    setInterval(updateExpiryLabels, 60000);
+</script>
+</body>
+</html>
